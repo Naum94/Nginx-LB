@@ -1,0 +1,15 @@
+upstream nodes{
+   ip_hash;
+   server web01:80;
+   server web02:80;
+}
+
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://nodes;
+        proxy_http_version 1.1;
+    }
+}
